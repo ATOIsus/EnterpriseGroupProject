@@ -1,6 +1,6 @@
-# Bhojanalaya.
+# Enterprise Project.
 
-## BhanchaGhar Team.
+## Group Project.
 
 **Team Members:**
 
