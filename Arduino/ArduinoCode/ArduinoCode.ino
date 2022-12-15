@@ -7,10 +7,10 @@
 
 LiquidCrystal_I2C lcd(0x27, 16, 2);            // Set the LCD address to 0x27 for a 16 chars and 2 line display.
 
-//Sensors
-int tempAquarium = A0;
+// Decalring Sensor pins.
+int tempAquariums = A0;
 
-int tempHotWater = A1;
+int tempHotWaters = A1;
 
 int trigLevelAquarium = 2;
 int echoLevelAquarium = 3;
@@ -18,20 +18,27 @@ int echoLevelAquarium = 3;
 int trigLevelFood = 5;
 int echoLevelFood = 6;
 
+int servoMotor = 8;
 
-//Global variabels
+//Global variabels for user defined functions.
 int temp  = 0;
 float duration = 0;
 int distance = 0;
 
 
+//Sensor values.
+float tempAquarium = 0;
+float tempHotWater = 0;
+int levelAquatium = 0;
+int levelFood = 0;
+
 //Setup Function.
 void setup() {
 
   //Declaring Pins.
-  pinMode(tempAquarium, INPUT);
-
-  pinMode(tempHotWater, INPUT);
+  pinMode(tempAquariums, INPUT);
+  pinMode(tempHotWaters, INPUT);
+  pinMode(servoMotor, OUTPUT);
 
   pinMode(trigLevelAquarium, OUTPUT);
   pinMode(echoLevelAquarium, INPUT);
@@ -40,7 +47,7 @@ void setup() {
   pinMode(echoLevelFood, INPUT);
 
 
-  //Seeial Monitor.
+  //Serial Monitor.
   Serial.begin(9600);
 
   //LCD.
@@ -60,7 +67,9 @@ void setup() {
 
 //Loop function
 void loop() {
-  // put your main code here, to run repeatedly:
+
+
+  
 
 }
 
