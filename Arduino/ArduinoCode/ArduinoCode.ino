@@ -8,9 +8,8 @@
 LiquidCrystal_I2C lcd(0x27, 16, 2);            // Set the LCD address to 0x27 for a 16 chars and 2 line display.
 
 // Decalring Sensor pins.
-int tempAquariums = A0;
-
-int tempHotWaters = A1;
+int pinTempAquarium = A0;
+int pinTempHotWater = A1;
 
 int trigLevelAquarium = 2;
 int echoLevelAquarium = 3;
@@ -29,15 +28,15 @@ int distance = 0;
 //Sensor values.
 float tempAquarium = 0;
 float tempHotWater = 0;
-int levelAquatium = 0;
+int levelAquarium = 0;
 int levelFood = 0;
 
 //Setup Function.
 void setup() {
 
   //Declaring Pins.
-  pinMode(tempAquariums, INPUT);
-  pinMode(tempHotWaters, INPUT);
+  pinMode(pinTempHotWater, INPUT);
+  pinMode(pinTempAquarium, INPUT);
   pinMode(servoMotor, OUTPUT);
 
   pinMode(trigLevelAquarium, OUTPUT);
@@ -54,22 +53,39 @@ void setup() {
   lcd.init();                              // Initialize the LCD.
   lcd.backlight();                         // For the backlight of the LCD.
 
-  lcd.setCursor(0, 0);                                // To print to the LCD.  setCursor(column,row).
+  lcd.setCursor(0, 0);                     // To print to the LCD.  setCursor(column,row).
   lcd.print("Welcome ");
 
-  lcd.setCursor(7, 1);                                // To print to the LCD.  setCursor(column,row).
+  lcd.setCursor(7, 1);                     // To print to the LCD.  setCursor(column,row).
   lcd.print("User!");
 
-  delay(3000);                                        // Delay the program by 3 seconds. i.e. Welcome User! is displayed for 3 seconds.
-  lcd.clear();                                        // To clear the LCD.
+  delay(3000);                             // Delay the program by 3 seconds. i.e. Welcome User! is displayed for 3 seconds.
+  lcd.clear();                             // To clear the LCD.
 }
+
+
 
 
 //Loop function
 void loop() {
 
+  tempAquarium = getTemp(pinTempAquarium);
+  tempHotWater = getTemp(pinTempHotWater);
 
-  
+  levelAquarium = getDistance(trigLevelAquarium, echoLevelAquarium);
+  levelFood = getDistance(trigLevelFood, echoLevelFood);
+
+  //Serial.println((String) "$tempAqua = " + tempAquarium + ", tempWater = " + tempHotWater + ", levelAqua = " + levelAquarium + ", levelFood = " + levelFood);
+
+  Serial.println((String) "tempAqua = " + tempAquarium + ", tempWater = " + tempHotWater + ", levelAqua = " + levelAquarium + ", levelFood = " + levelFood);
+  Serial.println((String) "$" + tempAquarium + "," + tempHotWater + "," + levelAquarium + "," + levelFood);
+
+
+
+  //Code for servo.
+
+
+
 
 }
 
@@ -77,6 +93,8 @@ void loop() {
 
 //Function to get temperature.
 float getTemp(int pin) {
+
+  //Conveting volts into degree Celcius.
   temp = analogRead(pin);
   float volts = (temp / 965.0) * 5;
   float celcius = (volts - 0.5) * 100;
