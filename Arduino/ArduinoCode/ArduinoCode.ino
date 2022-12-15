@@ -82,6 +82,22 @@ void loop() {
   Serial.println((String) "tempAqua = " + tempAquarium + ", tempWater = " + tempHotWater + ", levelAqua = " + levelAquarium + ", levelFood = " + levelFood);
   Serial.println((String) "$" + tempAquarium + "," + tempHotWater + "," + levelAquarium + "," + levelFood);
 
+
+  lcd.clear();  
+  
+  lcd.setCursor(0, 0);                     
+  lcd.print((String) "Taq: " + tempAquarium);
+
+  lcd.setCursor(10, 0);                     
+  lcd.print((String) "Tw: " + tempHotWater);
+  
+  lcd.setCursor(0, 1);                     
+  lcd.print((String) "Laq: " + levelAquarium);
+
+  lcd.setCursor(10, 1);                     
+  lcd.print((String) "Lf: " + levelFood);
+  
+
   //Code for servo.
 
 
