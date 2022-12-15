@@ -24,6 +24,8 @@ int temp  = 0;
 float duration = 0;
 int distance = 0;
 
+
+//Setup Function.
 void setup() {
 
   //Declaring Pins.
@@ -55,12 +57,16 @@ void setup() {
   lcd.clear();                                        // To clear the LCD.
 }
 
+
+//Loop function
 void loop() {
   // put your main code here, to run repeatedly:
 
 }
 
 
+
+//Function to get temperature.
 float getTemp(int pin) {
   temp = analogRead(pin);
   float volts = (temp / 965.0) * 5;
@@ -70,9 +76,11 @@ float getTemp(int pin) {
 }
 
 
+
+//Function to get distance.
 int getDistance(int trigPin, int echoPin) {
 
-  // Stop the trigpin.
+  //Stopping the trigpin.
   digitalWrite(trigPin, LOW);
   delayMicroseconds(2);
 
