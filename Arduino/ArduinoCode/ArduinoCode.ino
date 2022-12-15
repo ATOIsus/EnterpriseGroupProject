@@ -21,13 +21,14 @@ int echoLevelFood = 6;
 
 //Global variabels
 int temp  = 0;
+float duration = 0;
 int distance = 0;
 
 void setup() {
 
   //Declaring Pins.
   pinMode(tempAquarium, INPUT);
-  
+
   pinMode(tempHotWater, INPUT);
 
   pinMode(trigLevelAquarium, OUTPUT);
@@ -36,20 +37,20 @@ void setup() {
   pinMode(trigLevelFood, OUTPUT);
   pinMode(echoLevelFood, INPUT);
 
-  
+
   //Seeial Monitor.
   Serial.begin(9600);
 
   //LCD.
   lcd.init();                              // Initialize the LCD.
   lcd.backlight();                         // For the backlight of the LCD.
- 
+
   lcd.setCursor(0, 0);                                // To print to the LCD.  setCursor(column,row).
   lcd.print("Welcome ");
- 
+
   lcd.setCursor(7, 1);                                // To print to the LCD.  setCursor(column,row).
   lcd.print("User!");
-  
+
   delay(3000);                                        // Delay the program by 3 seconds. i.e. Welcome User! is displayed for 3 seconds.
   lcd.clear();                                        // To clear the LCD.
 }
@@ -60,10 +61,29 @@ void loop() {
 }
 
 
-float getTemp(int pin){
-  temp = analogRead(pin);  
-  float volts = (temp / 965.0) * 5;  
-  float celcius = (volts - 0.5) * 100; 
+float getTemp(int pin) {
+  temp = analogRead(pin);
+  float volts = (temp / 965.0) * 5;
+  float celcius = (volts - 0.5) * 100;
 
   return celcius;
+}
+
+
+int getDistance(int trigPin, int echoPin) {
+
+  // Stop the trigpin.
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+
+  //Triggering the trigpin for 10 microseconds.
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+
+  // Check if the echopin is triggered.
+  duration = pulseIn(echoPin, HIGH);
+  distance = duration * 0.034 / 2; // Speed of sound wave divided by 2 (go and back)
+
+  return distance;
 }
