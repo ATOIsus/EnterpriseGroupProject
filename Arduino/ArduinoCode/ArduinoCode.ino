@@ -69,18 +69,18 @@ void setup() {
 //Loop function
 void loop() {
 
+
+  //Getting temperature of the aquarium and hotWater from the function getTemp().
   tempAquarium = getTemp(pinTempAquarium);
   tempHotWater = getTemp(pinTempHotWater);
 
+  //Getting the water level of the aquarium and food level of the container from the function getDistance().
   levelAquarium = getDistance(trigLevelAquarium, echoLevelAquarium);
   levelFood = getDistance(trigLevelFood, echoLevelFood);
 
-  //Serial.println((String) "$tempAqua = " + tempAquarium + ", tempWater = " + tempHotWater + ", levelAqua = " + levelAquarium + ", levelFood = " + levelFood);
-
+  //Printing gathered data to hte Serial Monitor. 
   Serial.println((String) "tempAqua = " + tempAquarium + ", tempWater = " + tempHotWater + ", levelAqua = " + levelAquarium + ", levelFood = " + levelFood);
   Serial.println((String) "$" + tempAquarium + "," + tempHotWater + "," + levelAquarium + "," + levelFood);
-
-
 
   //Code for servo.
 
