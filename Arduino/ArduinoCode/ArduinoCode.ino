@@ -83,6 +83,7 @@ void loop() {
   Serial.println((String) "$" + tempAquarium + "," + tempHotWater + "," + levelAquarium + "," + levelFood);
 
 
+  //Display data in the LCD.
   lcd.clear();  
   
   lcd.setCursor(0, 0);                     
