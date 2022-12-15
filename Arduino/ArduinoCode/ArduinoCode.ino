@@ -12,25 +12,29 @@ int tempAquarium = A0;
 
 int tempHotWater = A1;
 
-int trigLevelAquarium = D2;
-int echoLevelAquarium = D3;
+int trigLevelAquarium = 2;
+int echoLevelAquarium = 3;
 
-int trigLevelFood = D5;
-int echoLevelFood = D6;
+int trigLevelFood = 5;
+int echoLevelFood = 6;
 
+
+//Global variabels
+int temp  = 0;
+int distance = 0;
 
 void setup() {
 
   //Declaring Pins.
-  pinMode(A0, INPUT);
+  pinMode(tempAquarium, INPUT);
   
-  pinMode(A1, INPUT);
+  pinMode(tempHotWater, INPUT);
 
-  pinMode(D2, OUTPUT);
-  pinMode(D3, INPUT);
+  pinMode(trigLevelAquarium, OUTPUT);
+  pinMode(echoLevelAquarium, INPUT);
 
-  pinMode(D4, OUTPUT);
-  pinMode(D5, INPUT);
+  pinMode(trigLevelFood, OUTPUT);
+  pinMode(echoLevelFood, INPUT);
 
   
   //Seeial Monitor.
@@ -53,4 +57,13 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
 
+}
+
+
+float getTemp(int pin){
+  temp = analogRead(pin);  
+  float volts = (temp / 965.0) * 5;  
+  float celcius = (volts - 0.5) * 100; 
+
+  return celcius;
 }
