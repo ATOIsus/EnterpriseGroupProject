@@ -4,7 +4,9 @@
 #include <SoftwareSerial.h>
 #include <Wire.h>                              // To communicate with I2C.
 #include <LiquidCrystal_I2C.h>                 // To control I2C(LCD) displays with functions.
+#include <Servo.h>
 
+Servo foodServo;
 LiquidCrystal_I2C lcd(0x27, 16, 2);            // Set the LCD address to 0x27 for a 16 chars and 2 line display.
 
 // Decalring Sensor pins.
@@ -31,13 +33,18 @@ float tempHotWater = 0;
 int levelAquarium = 0;
 int levelFood = 0;
 
+unsigned long lastServeTime = 0UL;
+bool servoOn = false;
+bool serveTime = false;
+
+
 //Setup Function.
 void setup() {
 
   //Declaring Pins.
   pinMode(pinTempHotWater, INPUT);
   pinMode(pinTempAquarium, INPUT);
-  pinMode(servoMotor, OUTPUT);
+  foodServo.attach(servoMotor);
 
   pinMode(trigLevelAquarium, OUTPUT);
   pinMode(echoLevelAquarium, INPUT);
@@ -78,33 +85,43 @@ void loop() {
   levelAquarium = getDistance(trigLevelAquarium, echoLevelAquarium);
   levelFood = getDistance(trigLevelFood, echoLevelFood);
 
-  //Printing gathered data to hte Serial Monitor. 
+  //Printing gathered data to hte Serial Monitor.
   Serial.println((String) "tempAqua = " + tempAquarium + ", tempWater = " + tempHotWater + ", levelAqua = " + levelAquarium + ", levelFood = " + levelFood);
   Serial.println((String) "$" + tempAquarium + "," + tempHotWater + "," + levelAquarium + "," + levelFood);
 
 
   //Display data in the LCD.
-  lcd.clear();  
-  
-  lcd.setCursor(0, 0);                     
+  lcd.clear();
+
+  lcd.setCursor(0, 0);
   lcd.print((String) "Taq: " + tempAquarium);
 
-  lcd.setCursor(10, 0);                     
+  lcd.setCursor(10, 0);
   lcd.print((String) "Tw: " + tempHotWater);
-  
-  lcd.setCursor(0, 1);                     
+
+  lcd.setCursor(0, 1);
   lcd.print((String) "Laq: " + levelAquarium);
 
-  lcd.setCursor(10, 1);                     
+  lcd.setCursor(10, 1);
   lcd.print((String) "Lf: " + levelFood);
-  
+
 
   //Code for servo.
 
+  
+  serveTime = lastServeTime == 0 || (millis() - lastServeTime) > 3600000;
 
+  if (serveTime && servoOn == false) {
+    
+    lastServeTime = millis();
+    myservo.write(180);                                
+    servoOn = true;
 
-
-}
+  }else if (servoOn && millis() - lastServeTime > 180000){     
+    myservo.write(0);                                  
+    servoOn = false;
+    }
+ }
 
 
 
