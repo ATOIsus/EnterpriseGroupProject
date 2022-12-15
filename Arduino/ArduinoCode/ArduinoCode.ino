@@ -4,9 +4,11 @@
 #include <SoftwareSerial.h>
 #include <Wire.h>                              // To communicate with I2C.
 #include <LiquidCrystal_I2C.h>                 // To control I2C(LCD) displays with functions.
+
 #include <Servo.h>
 
 Servo foodServo;
+
 LiquidCrystal_I2C lcd(0x27, 16, 2);            // Set the LCD address to 0x27 for a 16 chars and 2 line display.
 
 // Decalring Sensor pins.
@@ -44,7 +46,10 @@ void setup() {
   //Declaring Pins.
   pinMode(pinTempHotWater, INPUT);
   pinMode(pinTempAquarium, INPUT);
+
   foodServo.attach(servoMotor);
+  pinMode(servoMotor, OUTPUT);
+
 
   pinMode(trigLevelAquarium, OUTPUT);
   pinMode(echoLevelAquarium, INPUT);
@@ -76,7 +81,6 @@ void setup() {
 //Loop function
 void loop() {
 
-
   //Getting temperature of the aquarium and hotWater from the function getTemp().
   tempAquarium = getTemp(pinTempAquarium);
   tempHotWater = getTemp(pinTempHotWater);
@@ -86,6 +90,14 @@ void loop() {
   levelFood = getDistance(trigLevelFood, echoLevelFood);
 
   //Printing gathered data to hte Serial Monitor.
+  tempAquarium = getTemp(pinTempAquarium);
+  tempHotWater = getTemp(pinTempHotWater);
+
+  levelAquarium = getDistance(trigLevelAquarium, echoLevelAquarium);
+  levelFood = getDistance(trigLevelFood, echoLevelFood);
+
+  //Serial.println((String) "$tempAqua = " + tempAquarium + ", tempWater = " + tempHotWater + ", levelAqua = " + levelAquarium + ", levelFood = " + levelFood);
+
   Serial.println((String) "tempAqua = " + tempAquarium + ", tempWater = " + tempHotWater + ", levelAqua = " + levelAquarium + ", levelFood = " + levelFood);
   Serial.println((String) "$" + tempAquarium + "," + tempHotWater + "," + levelAquarium + "," + levelFood);
 
@@ -121,6 +133,8 @@ void loop() {
     myservo.write(0);                                             //Close the servo 0 degree.
     servoOn = false;
   }
+
+  
 }
 
 
