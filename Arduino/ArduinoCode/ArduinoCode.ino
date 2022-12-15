@@ -5,6 +5,10 @@
 #include <Wire.h>                              // To communicate with I2C.
 #include <LiquidCrystal_I2C.h>                 // To control I2C(LCD) displays with functions.
 
+#include <Servo.h>
+
+Servo foodServo;
+
 LiquidCrystal_I2C lcd(0x27, 16, 2);            // Set the LCD address to 0x27 for a 16 chars and 2 line display.
 
 // Decalring Sensor pins.
@@ -31,13 +35,21 @@ float tempHotWater = 0;
 int levelAquarium = 0;
 int levelFood = 0;
 
+unsigned long lastServeTime = 0UL;
+bool servoOn = false;
+bool serveTime = false;
+
+
 //Setup Function.
 void setup() {
 
   //Declaring Pins.
   pinMode(pinTempHotWater, INPUT);
   pinMode(pinTempAquarium, INPUT);
+
+  foodServo.attach(servoMotor);
   pinMode(servoMotor, OUTPUT);
+
 
   pinMode(trigLevelAquarium, OUTPUT);
   pinMode(echoLevelAquarium, INPUT);
@@ -69,6 +81,15 @@ void setup() {
 //Loop function
 void loop() {
 
+  //Getting temperature of the aquarium and hotWater from the function getTemp().
+  tempAquarium = getTemp(pinTempAquarium);
+  tempHotWater = getTemp(pinTempHotWater);
+
+  //Getting the water level of the aquarium and food level of the container from the function getDistance().
+  levelAquarium = getDistance(trigLevelAquarium, echoLevelAquarium);
+  levelFood = getDistance(trigLevelFood, echoLevelFood);
+
+  //Printing gathered data to hte Serial Monitor.
   tempAquarium = getTemp(pinTempAquarium);
   tempHotWater = getTemp(pinTempHotWater);
 
@@ -81,12 +102,39 @@ void loop() {
   Serial.println((String) "$" + tempAquarium + "," + tempHotWater + "," + levelAquarium + "," + levelFood);
 
 
+  //Display data in the LCD.
+  lcd.clear();
+
+  lcd.setCursor(0, 0);
+  lcd.print((String) "Taq: " + tempAquarium);
+
+  lcd.setCursor(10, 0);
+  lcd.print((String) "Tw: " + tempHotWater);
+
+  lcd.setCursor(0, 1);
+  lcd.print((String) "Laq: " + levelAquarium);
+
+  lcd.setCursor(10, 1);
+  lcd.print((String) "Lf: " + levelFood);
+
 
   //Code for servo.
 
+  //Give food every hour.
+  serveTime = lastServeTime == 0 || (millis() - lastServeTime) > 3600000;
 
+  if (serveTime && servoOn == false) {
 
+    lastServeTime = millis();
+    myservo.write(180);                                           //Open the servo to 180 degree.
+    servoOn = true;
 
+  } else if (servoOn && millis() - lastServeTime > 180000) {       // Open the servo for 3 minutes.
+    myservo.write(0);                                             //Close the servo 0 degree.
+    servoOn = false;
+  }
+
+  
 }
 
 
