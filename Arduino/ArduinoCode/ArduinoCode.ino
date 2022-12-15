@@ -108,20 +108,20 @@ void loop() {
 
   //Code for servo.
 
-  
+  //Give food every hour.
   serveTime = lastServeTime == 0 || (millis() - lastServeTime) > 3600000;
 
   if (serveTime && servoOn == false) {
-    
+
     lastServeTime = millis();
-    myservo.write(180);                                
+    myservo.write(180);                                           //Open the servo to 180 degree.
     servoOn = true;
 
-  }else if (servoOn && millis() - lastServeTime > 180000){     
-    myservo.write(0);                                  
+  } else if (servoOn && millis() - lastServeTime > 180000) {       // Open the servo for 3 minutes.
+    myservo.write(0);                                             //Close the servo 0 degree.
     servoOn = false;
-    }
- }
+  }
+}
 
 
 
