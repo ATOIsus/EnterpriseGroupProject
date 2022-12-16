@@ -25,10 +25,10 @@ public class click : MonoBehaviour
   void Start()
     {
 	//Initializing the variables to their respective input fields. 
-        tempAquarium = GameObject.Find("TextInputField").GetComponent<InputField>();
-        tempHotWater = GameObject.Find("TextInputField1").GetComponent<InputField>();
-        levelAquarium = GameObject.Find("TextInputField2").GetComponent<InputField>();
-        levelFood = GameObject.Find("TextInputField3").GetComponent<InputField>();
+        tempAquarium = GameObject.Find("fieldTempAquarium").GetComponent<InputField>();
+        tempHotWater = GameObject.Find("fieldTempHotWater").GetComponent<InputField>();
+        levelAquarium = GameObject.Find("fieldLevelAquarium").GetComponent<InputField>();
+        levelFood = GameObject.Find("fieldLevelFood").GetComponent<InputField>();
         
 	//Call function "OnButtonPressed_on" when the virtual button is pressed.
         Vb_on.RegisterOnButtonPressed(OnButtonPressed_on);
