@@ -109,6 +109,13 @@ void setup() {
 
 void loop() {
 
+  //Running the Blynk library
+  Blynk.run();
+
+  Blynk.virtualWrite(V0, levelAquarium);
+  Blynk.virtualWrite(V1, levelFood);
+  Blynk.virtualWrite(V2, tempAquarium);
+  Blynk.virtualWrite(V3, tempHotWater);
 
 }
 
