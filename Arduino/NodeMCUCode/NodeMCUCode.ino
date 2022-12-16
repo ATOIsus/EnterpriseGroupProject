@@ -7,6 +7,15 @@
 #include <BlynkSimpleEsp8266.h>
 
 
+
+//Defining the pins for motors.
+#define motorHotWater D0
+#define motorColdWater D1
+#define motorWaterOut D2
+#define motorAir D3
+
+
+
 //Blynk authentication token.
 #define BLYNK_AUTH_TOKEN "byCuxbgAUlcWYXyZBW6r0q1R4Xv_PB2h"
 
@@ -17,30 +26,52 @@ char pass[] = "pass";    //WI-FI password
 
 
 
-
-//Commuunication with the virtual pin to remotely turn ON or OFF door lamp.
-BLYNK_WRITE(V2) {
-
+//Commuunication with the virtual pin to remotely turn ON or OFF the motors.
+BLYNK_WRITE(V4) {
   //Take the value of the virtual pin.
   bool value = param.asInt();
-
+  
   // Check these values and turn the led ON or OFF.
   if (value == HIGH) {
-    digitalWrite(led, HIGH);
+    digitalWrite(motorHotWater, HIGH);
   } else {
-    digitalWrite(led, LOW);
+    digitalWrite(motorHotWater, LOW);
   }
+}
 
+
+BLYNK_WRITE(V5) {
+  bool value = param.asInt();
+  if (value == HIGH) {
+    digitalWrite(motorColdWater, HIGH);
+  } else {
+    digitalWrite(motorColdWater, LOW);
+  }
+}
+
+
+BLYNK_WRITE(V6) {
+  bool value = param.asInt();
+  if (value == HIGH) {
+    digitalWrite(motorWaterOut, HIGH);
+  } else {
+    digitalWrite(motorWaterOut, LOW);
+  }
 }
 
 
 
+BLYNK_WRITE(V7) {
+  bool value = param.asInt();
+  if (value == HIGH) {
+    digitalWrite(motorAir, HIGH);
+  } else {
+    digitalWrite(motorAir, LOW);
+  }
+}
 
-//Defining the pins for motors.
-#define motorHotWater D0
-#define motorColdWater D1
-#define motorWaterOut D2
-#define motorAir D3
+
+
 
 
 //Serial Communication with Arduino.
