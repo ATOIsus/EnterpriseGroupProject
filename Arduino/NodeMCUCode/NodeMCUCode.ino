@@ -7,6 +7,34 @@
 #include <BlynkSimpleEsp8266.h>
 
 
+//Blynk authentication token.
+#define BLYNK_AUTH_TOKEN "byCuxbgAUlcWYXyZBW6r0q1R4Xv_PB2h"
+
+//Connecting to Wi-Fi.
+char auth[] = BLYNK_AUTH_TOKEN;
+char ssid[] = "ssid";  //WI-FI name
+char pass[] = "pass";    //WI-FI password
+
+
+
+
+//Commuunication with the virtual pin to remotely turn ON or OFF door lamp.
+BLYNK_WRITE(V2) {
+
+  //Take the value of the virtual pin.
+  bool value = param.asInt();
+
+  // Check these values and turn the led ON or OFF.
+  if (value == HIGH) {
+    digitalWrite(led, HIGH);
+  } else {
+    digitalWrite(led, LOW);
+  }
+
+}
+
+
+
 
 //Defining the pins for motors.
 #define motorHotWater D0
