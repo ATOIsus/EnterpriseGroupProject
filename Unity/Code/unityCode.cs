@@ -30,4 +30,19 @@ public class click : MonoBehaviour
         Vb_on.RegisterOnButtonPressed(OnButtonPressed_on);
     }
 
+    
+    public void OnButtonPressed_on(VirtualButtonBehaviour Vb_on)
+    {
+        GetData_temAqua();
+        GetData_temWater();
+        GetData_lvlAqua();
+        GetData_lvlFood();
+    }
+ 
+    void GetData_temAqua() => StartCoroutine(GetData_Coroutine());
+    void GetData_temWater() => StartCoroutine(GetData_Coroutine1());
+    void GetData_lvlAqua() => StartCoroutine(GetData_Coroutine2());
+    void GetData_lvlFood() => StartCoroutine(GetData_Coroutine3());
+ 
+
 
