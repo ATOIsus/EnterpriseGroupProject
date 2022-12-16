@@ -35,6 +35,13 @@ float tempHotWater = 0;
 int levelAquarium = 0;
 int levelFood = 0;
 
+
+//Height of aquarium and food container in cm.
+int heightAquarium = 70;
+int heightContainer = 10;
+
+
+//For servo;
 unsigned long lastServeTime = 0UL;
 bool servoOn = false;
 bool serveTime = false;
@@ -85,17 +92,18 @@ void loop() {
   tempAquarium = getTemp(pinTempAquarium);
   tempHotWater = getTemp(pinTempHotWater);
 
-  //Getting the water level of the aquarium and food level of the container from the function getDistance().
+  //Getting the water level of the aquarium from the function getDistance().
   levelAquarium = getDistance(trigLevelAquarium, echoLevelAquarium);
+  //Calculating in percentage.
+  levelAquarium = (heightAquarium - levelAquarium ) / heightAquarium * 100;
+
+  //Getting the food level of the container from the function getDistance().
   levelFood = getDistance(trigLevelFood, echoLevelFood);
+  //Calculating in percentage.
+  levelFood = (heightContainer - levelFood ) / heightContainer * 100;
+
 
   //Printing gathered data to the Serial Monitor.
-  tempAquarium = getTemp(pinTempAquarium);
-  tempHotWater = getTemp(pinTempHotWater);
-
-  levelAquarium = getDistance(trigLevelAquarium, echoLevelAquarium);
-  levelFood = getDistance(trigLevelFood, echoLevelFood);
-
   Serial.println((String) "tempAqua = " + tempAquarium + ", tempWater = " + tempHotWater + ", levelAqua = " + levelAquarium + ", levelFood = " + levelFood);
   Serial.println((String) "$" + tempAquarium + "," + tempHotWater + "," + levelAquarium + "," + levelFood);
 
@@ -124,11 +132,11 @@ void loop() {
   if (serveTime && servoOn == false) {
 
     lastServeTime = millis();
-    myservo.write(90);                                           //Open the servo to 90 degree.
+    foodServo.write(40);                                             //Open the servo to 40 degree.
     servoOn = true;
 
-  } else if (servoOn && millis() - lastServeTime > 180000) {       // Open the servo for 3 minutes.
-    myservo.write(0);                                             //Close the servo 0 degree.
+  } else if (servoOn && millis() - lastServeTime > 180000) {        // Open the servo for 3 minutes.
+    foodServo.write(0);                                             //Close the servo 0 degree.
     servoOn = false;
   }
 }
