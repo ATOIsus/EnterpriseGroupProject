@@ -192,9 +192,12 @@ BLYNK_WRITE(V4) {
   if (value == HIGH) {
     if(checkTempHotWater()){
      digitalWrite(motorHotWater, HIGH);
+     motrHotWtr = true;
     }
+  
   } else {
     digitalWrite(motorHotWater, LOW);
+    motrHotWtr = false;
   }
 }
 
@@ -203,8 +206,11 @@ BLYNK_WRITE(V5) {
   bool value = param.asInt();
   if (value == HIGH) {
     digitalWrite(motorColdWater, HIGH);
+    motrColdWtr = true;
+ 
   } else {
     digitalWrite(motorColdWater, LOW);
+    motrColdWtr = false;
   }
 }
 
@@ -213,8 +219,11 @@ BLYNK_WRITE(V6) {
   bool value = param.asInt();
   if (value == HIGH) {
     digitalWrite(motorWaterOut, HIGH);
+    motrWtrOut = true;
+ 
   } else {
     digitalWrite(motorWaterOut, LOW);
+    motrWtrOut = false;
   }
 }
 
@@ -224,7 +233,10 @@ BLYNK_WRITE(V7) {
   bool value = param.asInt();
   if (value == HIGH) {
     digitalWrite(motorAir, HIGH);
+    motrAir = true;
+  
   } else {
     digitalWrite(motorAir, LOW);
+    motrAir = false;
   }
 }
