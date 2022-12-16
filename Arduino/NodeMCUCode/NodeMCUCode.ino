@@ -130,12 +130,15 @@ void serialCommunication() {
 
 
 void  checkTempAquarium() {
+  
   if (tempAquarium < 24) {
     Blynk.logEvent("watertoocold");
 
     if (motrHotWtr == false) {
-      digitalWrite(motorHotWater, HIGH);
-      motrHotWtr = true;
+      if (checkTempHotWater()) {
+        digitalWrite(motorHotWater, HIGH);
+        motrHotWtr = true;
+      }
     }
     if (motrColdWtr == true) {
       digitalWrite(motorColdWater, LOW);
@@ -159,12 +162,16 @@ void  checkTempAquarium() {
 
 
 
-void  checkTempHotWater() {
+bool  checkTempHotWater() {
   if (tempHotWater < 27) {
     Blynk.logEvent("temphotwater");
+    return false;
+  } else {
+    return true;
   }
-
 }
+
+
 
 void  checkLevelAquarium() {}
 
@@ -183,7 +190,9 @@ BLYNK_WRITE(V4) {
 
   // Check these values and turn the led ON or OFF.
   if (value == HIGH) {
-    digitalWrite(motorHotWater, HIGH);
+    if(checkTempHotWater()){
+     digitalWrite(motorHotWater, HIGH);
+    }
   } else {
     digitalWrite(motorHotWater, LOW);
   }
