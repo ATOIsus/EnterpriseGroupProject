@@ -6,13 +6,6 @@
 #include <ESP8266WiFi.h>
 #include <BlynkSimpleEsp8266.h>
 
-//Defining the pins for motors.
-#define motorHotWater D0
-#define motorColdWater D1
-#define motorWaterOut D2
-#define motorAir D3
-
-
 //Blynk authentication token.
 #define BLYNK_AUTH_TOKEN "byCuxbgAUlcWYXyZBW6r0q1R4Xv_PB2h"
 
@@ -20,6 +13,20 @@
 char auth[] = BLYNK_AUTH_TOKEN;
 char ssid[] = "ssid";  //WI-FI name
 char pass[] = "pass";    //WI-FI password
+
+
+//Defining the pins for motors.
+#define motorHotWater D0
+#define motorColdWater D1
+#define motorWaterOut D2
+#define motorAir D3
+
+
+//Keep track of the status of motors whether they are ON or OFF.
+bool motrHotWtr = false;
+bool motrColdWtr = false;
+bool motrWtrOut = false;
+bool motrAir = false;
 
 
 //Serial Communication with Arduino.
@@ -34,6 +41,7 @@ String strTempAquarium;
 String strLevelFood;
 String strLevelAquarium;
 String strTempHotWater;
+
 
 //Sensor data in integer type.
 int tempAquarium = 0;
@@ -108,10 +116,10 @@ void serialCommunication() {
         count = 0;
         startCount = false;
 
-         strTempAquarium = wholeString.substring(2, 5);
-         strTempHotWater = wholeString.substring(7, 9);
-         strLevelAquarium = wholeString.substring(12, 15);
-         strLevelFood = wholeString.substring(17, 19);
+        strTempAquarium = wholeString.substring(2, 5);
+        strTempHotWater = wholeString.substring(7, 9);
+        strLevelAquarium = wholeString.substring(12, 15);
+        strLevelFood = wholeString.substring(17, 19);
 
         wholeString = "";
       }
@@ -121,17 +129,41 @@ void serialCommunication() {
 
 
 
-void  checkTempAquarium(){
-  if(tempAquarium < 24){
+void  checkTempAquarium() {
+  if (tempAquarium < 24) {
+    Blynk.logEvent("watertoocold");
     
+    if (motrHotWtr == false) {
+      digitalWrite(motorHotWater, HIGH);
+      motrHotWtr = true;
     }
+    if (motrColdWtr == true) {
+      digitalWrite(motorColdWater, LOW);
+      motrColdWtr == false;
+    }
+    
+  } else if (tempAquarium > 27) {
+    Blynk.logEvent("watertoohot");
+    
+    if (motrHotWtr == true) {
+      digitalWrite(motorHotWater, LOW);
+      motrHotWtr = false;
+    }
+    if (motrColdWtr == false) {
+      digitalWrite(motorColdWater, HIGH);
+      motrColdWtr == true;
+    }
+    
   }
+}
 
-void  checkTempHotWater(){}
 
-void  checkLevelAquarium(){}
 
-void  checkLevelFood(){}
+void  checkTempHotWater() {}
+
+void  checkLevelAquarium() {}
+
+void  checkLevelFood() {}
 
 
 
