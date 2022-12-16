@@ -30,7 +30,7 @@ char pass[] = "pass";    //WI-FI password
 BLYNK_WRITE(V4) {
   //Take the value of the virtual pin.
   bool value = param.asInt();
-  
+
   // Check these values and turn the led ON or OFF.
   if (value == HIGH) {
     digitalWrite(motorHotWater, HIGH);
@@ -90,7 +90,17 @@ String levelFood;
 
 
 void setup() {
-   Serial.begin(9600);
+  //Initializing Serial Monitor for Serial communication.
+  Serial.begin(9600);
+
+  //Defining pin modes.
+  pinMode(motorColdWater, OUTPUT);
+  pinMode(motorHotWater, OUTPUT);
+  pinMode(motorWaterOut, OUTPUT);
+  pinMode(motorAir, OUTPUT);
+
+  //Initializing the Blynk library
+  Blynk.begin(auth, ssid, pass, "blynk.cloud", 80);
 }
 
 
@@ -98,7 +108,7 @@ void setup() {
 
 
 void loop() {
- 
+
 
 }
 
