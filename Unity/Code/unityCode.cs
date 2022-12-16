@@ -22,24 +22,6 @@ public class unityCode: MonoBehaviour
 
     //Declaring the virtual button.
     public VirtualButtonBehaviour Vb_on;
-
-    
-    // To remotely access the motors.
-    public VirtualButtonBehaviour VbHotWaterON;
-    public VirtualButtonBehaviour VbHotWaterOFF;
-    public string urlHotWaterON;
-    public string urlHotWaterOFF;
-
-  
-    IEnumerator GetRequest(string uri)
-    {
-        using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
-        {
-            // Request and wait for the desired page.
-            yield return webRequest.SendWebRequest();
-        }
-    }
-
  
 
   void Start()
@@ -52,22 +34,7 @@ public class unityCode: MonoBehaviour
         
 	//Call function "OnButtonPressed_on" when the virtual button is pressed.
         Vb_on.RegisterOnButtonPressed(OnButtonPressed_on);
-
-	//For motors.
-	VbHotWaterON.RegisterOnButtonPressed(OnButtonPressedON);
-        VbHotWaterOFF.RegisterOnButtonPressed(OnButtonPressedOFF);
        
-    }
-
-    
-    public void OnButtonPressedON(VirtualButtonBehaviour VbHotWaterON)
-    {
-        StartCoroutine(GetRequest(url_on));
-    }
-
-    public void OnButtonPressedOFF(VirtualButtonBehaviour VbHotWaterOFF)
-    {
-        StartCoroutine(GetRequest(url_off));
     }
 
     
@@ -150,8 +117,6 @@ public class unityCode: MonoBehaviour
             }
         }
     }
-
-
 
 
    IEnumerator GetData_Coroutine3()
