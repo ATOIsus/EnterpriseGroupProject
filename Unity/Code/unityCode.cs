@@ -3,10 +3,12 @@
 
 //Declaring Libraries.
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
 using Vuforia;
+
 
 
 
@@ -20,6 +22,14 @@ public class unityCode: MonoBehaviour
 
     //Declaring the virtual button.
     public VirtualButtonBehaviour Vb_on;
+
+    
+    // To remotely access the motors.
+    public VirtualButtonBehaviour VbHotWaterON;
+    public VirtualButtonBehaviour VbHotWaterOFF;
+    public string urlHotWaterON;
+    public string urlHotWaterOFF;
+
  
 
   void Start()
