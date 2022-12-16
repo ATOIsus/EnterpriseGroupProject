@@ -30,6 +30,16 @@ public class unityCode: MonoBehaviour
     public string urlHotWaterON;
     public string urlHotWaterOFF;
 
+  
+    IEnumerator GetRequest(string uri)
+    {
+        using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
+        {
+            // Request and wait for the desired page.
+            yield return webRequest.SendWebRequest();
+        }
+    }
+
  
 
   void Start()
@@ -42,6 +52,11 @@ public class unityCode: MonoBehaviour
         
 	//Call function "OnButtonPressed_on" when the virtual button is pressed.
         Vb_on.RegisterOnButtonPressed(OnButtonPressed_on);
+
+	//For motors.
+	VbHotWaterON.RegisterOnButtonPressed(OnButtonPressed_on);
+        VbHotWaterON.RegisterOnButtonPressed(OnButtonPressed_off);
+       
     }
 
     
@@ -148,3 +163,6 @@ public class unityCode: MonoBehaviour
 
 
 }
+
+
+
