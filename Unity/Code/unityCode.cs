@@ -54,9 +54,20 @@ public class unityCode: MonoBehaviour
         Vb_on.RegisterOnButtonPressed(OnButtonPressed_on);
 
 	//For motors.
-	VbHotWaterON.RegisterOnButtonPressed(OnButtonPressed_on);
-        VbHotWaterON.RegisterOnButtonPressed(OnButtonPressed_off);
+	VbHotWaterON.RegisterOnButtonPressed(OnButtonPressedON);
+        VbHotWaterOFF.RegisterOnButtonPressed(OnButtonPressedOFF);
        
+    }
+
+    
+    public void OnButtonPressedON(VirtualButtonBehaviour VbHotWaterON)
+    {
+        StartCoroutine(GetRequest(url_on));
+    }
+
+    public void OnButtonPressedOFF(VirtualButtonBehaviour VbHotWaterOFF)
+    {
+        StartCoroutine(GetRequest(url_off));
     }
 
     
