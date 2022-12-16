@@ -10,7 +10,7 @@ using Vuforia;
 
 
 
-public class click : MonoBehaviour
+public class unityCode: MonoBehaviour
 {
     //Declaring variables for the input fields.
     InputField tempAquarium;
