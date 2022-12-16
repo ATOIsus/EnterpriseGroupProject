@@ -189,7 +189,11 @@ void  checkLevelAquarium() {
 }
 
 
-void  checkLevelFood() {}
+void  checkLevelFood() {
+  if (levelFood < 20) {
+    Blynk.logEvent("foodcontainerempty");
+  }
+}
 
 
 
