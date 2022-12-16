@@ -6,7 +6,6 @@
 #include <ESP8266WiFi.h>
 #include <BlynkSimpleEsp8266.h>
 
-
 //Defining the pins for motors.
 #define motorHotWater D0
 #define motorColdWater D1
@@ -30,11 +29,17 @@ int count = 0;
 String wholeString;
 
 
-//Sensor data.
-String tempAquarium;
-String tempHotWater;
-String levelAquarium;
-String levelFood;
+//Sensor data in string from Serial Communication.
+String strTempAquarium;
+String strLevelFood;
+String strLevelAquarium;
+String strTempHotWater;
+
+//Sensor data in integer type.
+int tempAquarium = 0;
+int tempHotWater = 0;
+int levelAquarium = 0;
+int levelFood = 0;
 
 
 
@@ -48,11 +53,9 @@ void setup() {
   pinMode(motorWaterOut, OUTPUT);
   pinMode(motorAir, OUTPUT);
 
-  //Initializing the Blynk library
+  //Initializing the Blynk library.
   Blynk.begin(auth, ssid, pass, "blynk.cloud", 80);
 }
-
-
 
 
 
@@ -60,6 +63,19 @@ void loop() {
 
   //Running the Blynk library
   Blynk.run();
+
+  serialCommunication();
+
+  //From string to integer.
+  tempAquarium = strTempAquarium.toInt();
+  tempHotWater = strTempHotWater.toInt();
+  levelAquarium = strLevelAquarium.toInt();
+  levelFood = strLevelFood.toInt();
+
+  checkTempAquarium();
+  checkTempHotWater();
+  checkLevelAquarium();
+  checkLevelFood();
 
   Blynk.virtualWrite(V0, levelAquarium);
   Blynk.virtualWrite(V1, levelFood);
@@ -71,6 +87,7 @@ void loop() {
 
 
 
+//Get data from Arduino via Serial Monitor.
 void serialCommunication() {
   while (Serial.available()) {
     char c = Serial.read();
@@ -91,16 +108,32 @@ void serialCommunication() {
         count = 0;
         startCount = false;
 
-        tempAquarium = wholeString.substring(2, 5);
-        tempHotWater = wholeString.substring(7, 9);
-        levelAquarium = wholeString.substring(12, 15);
-        levelFood = wholeString.substring(17, 19);
+         strTempAquarium = wholeString.substring(2, 5);
+         strTempHotWater = wholeString.substring(7, 9);
+         strLevelAquarium = wholeString.substring(12, 15);
+         strLevelFood = wholeString.substring(17, 19);
 
         wholeString = "";
       }
     }
   }
 }
+
+
+
+void  checkTempAquarium(){
+  if(tempAquarium < 24){
+    
+    }
+  }
+
+void  checkTempHotWater(){}
+
+void  checkLevelAquarium(){}
+
+void  checkLevelFood(){}
+
+
 
 
 
