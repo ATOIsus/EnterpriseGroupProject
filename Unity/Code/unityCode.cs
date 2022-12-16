@@ -66,3 +66,31 @@ public class click : MonoBehaviour
 
 
 
+   IEnumerator GetData_Coroutine1()
+    {
+        Debug.Log("Getting Data");
+        tempHotWater.text = "Loading...";
+        string uri = "https://sgp1.blynk.cloud/external/api/get?token=-XiF3fwP7C74lFBf-lIlRbImokZDu5VL&v3";
+        using(UnityWebRequest request = UnityWebRequest.Get(uri))
+        {
+            yield return request.SendWebRequest();
+            if (request.isNetworkError || request.isHttpError)
+                tempHotWater.text = request.error;
+            else
+            {
+
+                tempHotWater.text = request.downloadHandler.text;
+                tempHotWater.text = field.text.Substring(2,2);
+            }
+        }
+    }
+
+
+
+
+
+
+}
+
+
+
