@@ -59,7 +59,7 @@ public class click : MonoBehaviour
             {
 
                 tempAquarium.text = request.downloadHandler.text;
-                tempAquarium.text = field.text.Substring(2,2);
+                tempAquarium.text = tempAquarium.text.Substring(2,2);
             }
         }
     }
@@ -80,7 +80,7 @@ public class click : MonoBehaviour
             {
 
                 tempHotWater.text = request.downloadHandler.text;
-                tempHotWater.text = field.text.Substring(2,2);
+                tempHotWater.text = tempHotWater.text.Substring(2,2);
             }
         }
     }
@@ -100,7 +100,7 @@ public class click : MonoBehaviour
             else
             {
                 levelAquarium.text = request.downloadHandler.text;
-                levelAquarium.text = field.text.Substring(2,2);
+                levelAquarium.text = levelAquarium.text.Substring(2,2);
             }
         }
     }
@@ -108,8 +108,24 @@ public class click : MonoBehaviour
 
 
 
+   IEnumerator GetData_Coroutine3()
+    {
+        Debug.Log("Getting Data");
+        levelFood.text = "Loading...";
+        string uri = "https://sgp1.blynk.cloud/external/api/get?token=-XiF3fwP7C74lFBf-lIlRbImokZDu5VL&v1";
+        using(UnityWebRequest request = UnityWebRequest.Get(uri))
+        {
+            yield return request.SendWebRequest();
+            if (request.isNetworkError || request.isHttpError)
+                levelFood.text = request.error;
+            else
+            {
 
-
+                levelFood.text = request.downloadHandler.text;
+                levelFood.text = levelFood.text.Substring(2,2);
+            }
+        }
+    }
 
 
 }
