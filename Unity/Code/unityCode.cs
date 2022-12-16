@@ -64,7 +64,7 @@ public class click : MonoBehaviour
         using(UnityWebRequest request = UnityWebRequest.Get(uri))
         {
             yield return request.SendWebRequest();
-            if (request.isNetworkError || request.isHttpError)
+            if (request.result == UnityWebRequest.Result.ConnectionError)
                 tempAquarium.text = request.error;
             else
             {
@@ -85,7 +85,7 @@ public class click : MonoBehaviour
         using(UnityWebRequest request = UnityWebRequest.Get(uri))
         {
             yield return request.SendWebRequest();
-            if (request.isNetworkError || request.isHttpError)
+            if (request.result == UnityWebRequest.Result.ConnectionError)
                 tempHotWater.text = request.error;
             else
             {
@@ -105,7 +105,7 @@ public class click : MonoBehaviour
         using(UnityWebRequest request = UnityWebRequest.Get(uri))
         {
             yield return request.SendWebRequest();
-            if (request.isNetworkError || request.isHttpError)
+            if (request.result == UnityWebRequest.Result.ConnectionError)
                 levelAquarium.text = request.error;
             else
             {
@@ -126,7 +126,7 @@ public class click : MonoBehaviour
         using(UnityWebRequest request = UnityWebRequest.Get(uri))
         {
             yield return request.SendWebRequest();
-            if (request.isNetworkError || request.isHttpError)
+            if (request.result == UnityWebRequest.Result.ConnectionError)
                 levelFood.text = request.error;
             else
             {
@@ -138,6 +138,3 @@ public class click : MonoBehaviour
 
 
 }
-
-
-
