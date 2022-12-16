@@ -130,7 +130,7 @@ void serialCommunication() {
 
 
 void  checkTempAquarium() {
-  
+
   if (tempAquarium < 24) {
     Blynk.logEvent("watertoocold");
 
@@ -173,12 +173,23 @@ bool  checkTempHotWater() {
 
 
 
-void  checkLevelAquarium() {}
+void  checkLevelAquarium() {
+
+  if (levelAquarium < 70) {
+    digitalWrite(motorColdWater, HIGH);
+    motrColdWtr == true;
+
+  } else if (levelAquarium > 90) {
+    digitalWrite(motorHotWater, LOW);
+    motrHotWtr = false;
+
+    digitalWrite(motorHotWater, LOW);
+    motrHotWtr = false;
+  }
+}
+
 
 void  checkLevelFood() {}
-
-
-
 
 
 
@@ -190,11 +201,11 @@ BLYNK_WRITE(V4) {
 
   // Check these values and turn the led ON or OFF.
   if (value == HIGH) {
-    if(checkTempHotWater()){
-     digitalWrite(motorHotWater, HIGH);
-     motrHotWtr = true;
+    if (checkTempHotWater()) {
+      digitalWrite(motorHotWater, HIGH);
+      motrHotWtr = true;
     }
-  
+
   } else {
     digitalWrite(motorHotWater, LOW);
     motrHotWtr = false;
@@ -207,7 +218,7 @@ BLYNK_WRITE(V5) {
   if (value == HIGH) {
     digitalWrite(motorColdWater, HIGH);
     motrColdWtr = true;
- 
+
   } else {
     digitalWrite(motorColdWater, LOW);
     motrColdWtr = false;
@@ -220,7 +231,7 @@ BLYNK_WRITE(V6) {
   if (value == HIGH) {
     digitalWrite(motorWaterOut, HIGH);
     motrWtrOut = true;
- 
+
   } else {
     digitalWrite(motorWaterOut, LOW);
     motrWtrOut = false;
@@ -234,7 +245,7 @@ BLYNK_WRITE(V7) {
   if (value == HIGH) {
     digitalWrite(motorAir, HIGH);
     motrAir = true;
-  
+
   } else {
     digitalWrite(motorAir, LOW);
     motrAir = false;
