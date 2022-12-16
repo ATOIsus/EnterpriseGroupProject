@@ -132,7 +132,7 @@ void serialCommunication() {
 void  checkTempAquarium() {
   if (tempAquarium < 24) {
     Blynk.logEvent("watertoocold");
-    
+
     if (motrHotWtr == false) {
       digitalWrite(motorHotWater, HIGH);
       motrHotWtr = true;
@@ -141,10 +141,10 @@ void  checkTempAquarium() {
       digitalWrite(motorColdWater, LOW);
       motrColdWtr == false;
     }
-    
+
   } else if (tempAquarium > 27) {
     Blynk.logEvent("watertoohot");
-    
+
     if (motrHotWtr == true) {
       digitalWrite(motorHotWater, LOW);
       motrHotWtr = false;
@@ -153,13 +153,18 @@ void  checkTempAquarium() {
       digitalWrite(motorColdWater, HIGH);
       motrColdWtr == true;
     }
-    
+
   }
 }
 
 
 
-void  checkTempHotWater() {}
+void  checkTempHotWater() {
+  if (tempHotWater < 27) {
+    Blynk.logEvent("temphotwater");
+  }
+
+}
 
 void  checkLevelAquarium() {}
 
