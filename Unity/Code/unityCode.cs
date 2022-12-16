@@ -87,6 +87,28 @@ public class click : MonoBehaviour
 
 
 
+   IEnumerator GetData_Coroutine2()
+    {
+        Debug.Log("Getting Data");
+        levelAquarium.text = "Loading...";
+        string uri = "https://sgp1.blynk.cloud/external/api/get?token=-XiF3fwP7C74lFBf-lIlRbImokZDu5VL&v0";
+        using(UnityWebRequest request = UnityWebRequest.Get(uri))
+        {
+            yield return request.SendWebRequest();
+            if (request.isNetworkError || request.isHttpError)
+                levelAquarium.text = request.error;
+            else
+            {
+                levelAquarium.text = request.downloadHandler.text;
+                levelAquarium.text = field.text.Substring(2,2);
+            }
+        }
+    }
+
+
+
+
+
 
 
 
