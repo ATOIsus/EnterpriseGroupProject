@@ -1,6 +1,20 @@
 //Node MCU Code.
 
 
+//Importing libraries to connect to Blynk.
+#define BLYNK_PRINT Serial
+#include <ESP8266WiFi.h>
+#include <BlynkSimpleEsp8266.h>
+
+
+
+//Defining the pins for motors.
+#define motorHotWater D0
+#define motorColdWater D1
+#define motorWaterOut D2
+#define motorAir D3
+
+
 //Serial Communication with Arduino.
 bool startCount = false;
 int stringLength = 74;
