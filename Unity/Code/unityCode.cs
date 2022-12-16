@@ -45,4 +45,24 @@ public class click : MonoBehaviour
     void GetData_lvlFood() => StartCoroutine(GetData_Coroutine3());
  
 
+   IEnumerator GetData_Coroutine()
+    {
+        Debug.Log("Getting Data");
+        tempAquarium.text = "Loading...";
+        string uri = "https://sgp1.blynk.cloud/external/api/get?token=-XiF3fwP7C74lFBf-lIlRbImokZDu5VL&v2";
+        using(UnityWebRequest request = UnityWebRequest.Get(uri))
+        {
+            yield return request.SendWebRequest();
+            if (request.isNetworkError || request.isHttpError)
+                tempAquarium.text = request.error;
+            else
+            {
+
+                tempAquarium.text = request.downloadHandler.text;
+                tempAquarium.text = field.text.Substring(2,2);
+            }
+        }
+    }
+
+
 
