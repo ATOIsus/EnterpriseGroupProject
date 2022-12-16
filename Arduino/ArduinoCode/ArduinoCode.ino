@@ -35,7 +35,6 @@ float tempHotWater = 0;
 int levelAquarium = 0;
 int levelFood = 0;
 
-
 //Height of aquarium and food container in cm.
 int heightAquarium = 70;
 int heightContainer = 10;
@@ -103,7 +102,10 @@ void loop() {
   levelFood = (heightContainer - levelFood ) / heightContainer * 100;
 
 
-  //Printing gathered data to the Serial Monitor.
+  //Getting the water level of the aquarium and food level of the container from the function getDistance().
+  levelAquarium = getDistance(trigLevelAquarium, echoLevelAquarium);
+  levelFood = getDistance(trigLevelFood, echoLevelFood);
+
   Serial.println((String) "tempAqua = " + tempAquarium + ", tempWater = " + tempHotWater + ", levelAqua = " + levelAquarium + ", levelFood = " + levelFood);
   Serial.println((String) "$" + tempAquarium + "," + tempHotWater + "," + levelAquarium + "," + levelFood);
 
@@ -132,6 +134,7 @@ void loop() {
   if (serveTime && servoOn == false) {
 
     lastServeTime = millis();
+
     foodServo.write(40);                                             //Open the servo to 40 degree.
     servoOn = true;
 
