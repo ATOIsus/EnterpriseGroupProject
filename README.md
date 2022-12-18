@@ -4,11 +4,12 @@
 
 **Team Members:**
 
-1. Amit Shrestha.
-2. Amsh Shrestha.
-3. Laxman Sharma. 
-4. Sabin Maharjan.
-5. Shafal Adhikari.
+1. Aakriti Regmi.
+2. Amit Shrestha.
+3. Amsh Shrestha.
+4. Laxman Sharma. 
+5. Sabin Maharjan.
+6. Shafal Adhikari.
 
 # YouTube Link
 
