@@ -183,8 +183,8 @@ void  checkLevelAquarium() {
     digitalWrite(motorHotWater, LOW);
     motrHotWtr = false;
 
-    digitalWrite(motorHotWater, LOW);
-    motrHotWtr = false;
+    digitalWrite(motorColdWater, LOW);
+    motrColdWtr = false;
   }
 }
 
