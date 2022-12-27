@@ -12,8 +12,6 @@
 5. Sabin Maharjan.
 6. Shafal Adhikari.
 
-# YouTube Link
-
 # Project Overview
 
 Aquarium Monitoring System to view the overall status of the aquarium and remotely control different motors.
