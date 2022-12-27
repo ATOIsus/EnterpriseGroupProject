@@ -5,10 +5,10 @@
 
 **Team Members:**
 
-1. Aakriti Regmi. (210194)
+1. Aakriti Regmi. 
 2. Amit Shrestha.
-3. Amsh Shrestha. (210136)
-4. Laxman Sharma. (210172)
+3. Amsh Shrestha. 
+4. Laxman Sharma. 
 5. Sabin Maharjan.
 6. Shafal Adhikari.
 
