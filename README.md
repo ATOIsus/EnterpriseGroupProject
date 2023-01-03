@@ -1,7 +1,7 @@
 
 # Enterprise Project.
 
-## Group Project.
+## Aquam (Aquarium Monitoring System).
 
 **Team Members:**
 
@@ -14,7 +14,7 @@
 
 # Project Overview
 
-Aquarium Monitoring System to view the overall status of the aquarium and remotely control different motors.
+ Aquam is used to view the overall status of the aquarium and remotely control different motors.
 
 ## List of Features
 
